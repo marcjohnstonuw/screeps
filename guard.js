@@ -1,9 +1,10 @@
+var config = require('config');
 module.exports = function (creep) {
-	var targets = creep.room.find(Game.HOSTILE_CREEPS);
-	if(targets.length) {
-		creep.moveTo(targets[0]);
-		creep.attack(targets[0]);
+	var target = creep.pos.findNearest(Game.HOSTILE_CREEPS);
+	if(target && creep.getActiveBodyparts(Game.ATTACK) && !config.RETREAT) {
+		creep.moveTo(target);
+		creep.attack(target);
 	} else {
-	    creep.moveTo(24, 26)
+	    creep.moveTo(23, 24)
 	}
 }
