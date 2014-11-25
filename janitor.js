@@ -1,3 +1,4 @@
+var scavenger = require('scavenger');
 module.exports = function (creep) {
 	var targets = creep.room.find(Game.STRUCTURES);
 	if(targets.length) {
@@ -10,9 +11,12 @@ module.exports = function (creep) {
         			creep.moveTo(targets[i]);
         			creep.repair(targets[i]);
             	}
-	        }
+	        } else {
+	        	console.log('scavenger?');
+			    scavenger(creep);
+			}
 	    }
 	} else {
-	    creep.moveTo(23, 23);
+	    scavenger(creep);
 	}
 }

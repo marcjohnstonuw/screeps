@@ -70,45 +70,70 @@ for (var i = 0; i < Memory.sources.length; i++) {
     miner(Memory.sources[i]);
 }
 
+//dicknuts
+
+//start with harvesters for the close one
+if (currentHarvesters < 3) {
+    Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.MOVE], utils.getName('Harvester'), { role: 'harvester', primarySource: 0 });
+}
+/*
 //1 miner and 1 courier
 if (Memory.sources[0].miners.length < 1 || Memory.sources[0].couriers.length < 1) {
     utils.spawnForSource(Memory.sources[0]);
 } 
+*/
 //1 guard
 else if (currentGuards < 1) {
     Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.ATTACK, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
 } 
+// 5 harvesters
+if (currentHarvesters < 5) {
+    Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.MOVE], utils.getName('Harvester'), { role: 'harvester', primarySource: 0 });
+}
+/*
 //2 miner, 1 courier
 else if (Memory.sources[0].miners.length < 2 || Memory.sources[0].couriers.length < 1) {
     utils.spawnForSource(Memory.sources[0]);
 } 
+*/
 //2 guards
 else if (currentGuards < 2) {
     Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.ATTACK, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
 } 
-//1 healer
-else if (currentHealers < 1) {
-    Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
-} 
+/*
 // 2 miners, 2 couriers (site 0 complete)
 else if (Memory.sources[0].miners.length < 2 || Memory.sources[0].couriers.length < 2) {
     utils.spawnForSource(Memory.sources[0]);
 } 
+*/
+//Site 3:  1 miners, 1 couriers (site 3 complete)
+else if (Memory.sources[3].miners.length < 1|| Memory.sources[3].couriers.length < 1) {
+    utils.spawnForSource(Memory.sources[3]);
+} 
+// let's build stuff!
+else if (currentBuilders < 1) {
+    Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.WORK, Game.MOVE, Game.MOVE], utils.getName('Builder'), { role: 'builder', primarySource: 4 });
+} 
 //3 guards
 else if (currentGuards < 3) {
+    Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.ATTACK, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
+} 
+
+//1 healer
+else if (currentHealers < 1) {
+    Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
+} 
+// 5 guards
+else if (currentGuards < 5) {
     Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.ATTACK, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
 } 
 //2 healers
 else if (currentHealers < 2) {
     Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
 } 
-//Site 1:  1 miners, 1 couriers (site 1 complete)
-else if (Memory.sources[1].miners.length < 21|| Memory.sources[1].couriers.length < 1) {
+// 1 miners, 1 couriers 
+else if (Memory.sources[1].miners.length < 1 || Memory.sources[1].couriers.length < 1) {
     utils.spawnForSource(Memory.sources[1]);
-} 
-// 5 guards
-else if (currentGuards < 5) {
-    Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.ATTACK, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
 } 
 // 3 ranged
 else if (currentArchers < 3) {

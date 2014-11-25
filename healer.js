@@ -20,6 +20,6 @@ module.exports = function (creep) {
     } else if (guards.length > 0) {
         creep.moveTo(guards[0]);
     } else {
-        creep.moveTo(20, 20);
+        creep.moveTo(24, 26);
     }
 }
