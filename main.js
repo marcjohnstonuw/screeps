@@ -61,7 +61,7 @@ for(var name in Game.creeps) {
     }
     
     if(creep.memory.role === 'archer') {
-        currentArcher += 1;
+        currentArchers += 1;
         archer(creep);
     }
 }
@@ -69,8 +69,6 @@ for(var name in Game.creeps) {
 for (var i = 0; i < Memory.sources.length; i++) {
     miner(Memory.sources[i]);
 }
-
-//dicknuts
 
 //start with harvesters for the close one
 if (currentHarvesters < 3) {
@@ -82,10 +80,12 @@ if (Memory.sources[0].miners.length < 1 || Memory.sources[0].couriers.length < 1
     utils.spawnForSource(Memory.sources[0]);
 } 
 */
+/*
 //1 guard
 else if (currentGuards < 1) {
     Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.ATTACK, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
 } 
+*/
 // 5 harvesters
 if (currentHarvesters < 5) {
     Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.MOVE], utils.getName('Harvester'), { role: 'harvester', primarySource: 0 });
@@ -96,10 +96,16 @@ else if (Memory.sources[0].miners.length < 2 || Memory.sources[0].couriers.lengt
     utils.spawnForSource(Memory.sources[0]);
 } 
 */
+// 2 ranged
+else if (currentArchers < 2) {
+    Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
+}
+/*
 //2 guards
 else if (currentGuards < 2) {
     Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.ATTACK, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
 } 
+*/
 /*
 // 2 miners, 2 couriers (site 0 complete)
 else if (Memory.sources[0].miners.length < 2 || Memory.sources[0].couriers.length < 2) {
