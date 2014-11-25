@@ -3,8 +3,6 @@ module.exports = function (source) {
     for (var i = 0; i < source.couriers.length; i++) {
         var creep = Game.creeps[source.couriers[i]];
         var sources = creep.room.find(Game.SOURCES);
-        console.log(creep.room.find(Game.SOURCES));
-        console.log('moveTo :' + JSON.stringify(sources[i]))
         creep.moveTo(sources[i])
     	if(creep.energy < creep.energyCapacity) {   //harvest
     		creep.harvest(sources[i]);

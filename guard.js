@@ -10,7 +10,6 @@ module.exports = function (creep) {
 		creep.attack(target);
 	} else {
 		if (config.RETREAT) {
-			console.log('moving?' + creep.moveTo(25, 26, {withinRampartsOnly: true}))
 		    if (creep.moveTo(25, 26, {withinRampartsOnly: true}) < 0) {
 		    	creep.moveTo(25, 26)	
 		    }
