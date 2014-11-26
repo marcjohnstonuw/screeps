@@ -25,7 +25,7 @@ function getPositionInDirection (pos, direction, distance) {
     if (direction === 5 || direction === 6 || direction === 7) {
         dx = -1;
     }
-    console.log('gPID returning :' + JSON.stringify({x: pos.x + (dx * distance), y: pos.y = (dy * distance)}))
+    console.log('gPID returning :' + JSON.stringify({x: pos.x + (dx * distance), y: pos.y + (dy * distance)}))
     return {x: pos.x + (dx * distance), y: pos.y = (dy * distance)};
 }
 
@@ -147,6 +147,11 @@ module.exports = {
         creep.moveTo(getPositionInDirection(creep.pos, homeDirection, 2));
     },
 
-    getPositionInDirection: getPositionInDirection
+    getPositionInDirection: getPositionInDirection,
+
+    kite: function (creep, direction) {
+        console.log('direction :' + direction);
+        creep.moveTo(getPositionInDirection(creep.pos, direction));
+    }
 }
 //dicks

@@ -8,9 +8,11 @@ module.exports = function (creep) {
 		if (creep.getActiveBodyparts(Game.RANGED_ATTACK)) {
 			var path = creep.pos.findPathTo(target, {ignoreCreeps: true})
 			if (path.length <= 2) {
+				var towards = path[0].direction;
+				var away = ((towards + 3) % 8) + 1;
 				var res = creep.rangedAttack(target);
 				console.log('kite?' + res);
-				utils.bail(creep, target);
+				utils.kite(creep, away);
 			}
 			else if (path.length >= 3) {
 				var res = creep.rangedAttack(target)
