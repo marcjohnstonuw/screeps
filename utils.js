@@ -61,11 +61,11 @@ module.exports = {
     },
     
     spawnForSource: function (source) {
-        if (source.miners.length === 0) {
+        if (source.miners.length < 1) {
             var resp = Game.spawns.Spawn1.createCreep( 
-                [Game.WORK, Game.CARRY, Game.WORK, Game.CARRY, Game.MOVE], 
+                [Game.WORK, Game.WORK, Game.CARRY, Game.CARRY, Game.MOVE], 
                 getName('Miner'), 
-                { role: 'miner', primarySource: 'look in memory' }
+                { role: 'miner', primarySource: source.id }
             );
             if (typeof(resp) === 'string') {
                 source.miners.push(resp);
@@ -73,9 +73,9 @@ module.exports = {
             return;
         } else if (source.couriers.length < 1) {
             var resp = Game.spawns.Spawn1.createCreep( 
-                [Game.CARRY, Game.CARRY, Game.MOVE, Game.MOVE], 
+                [Game.CARRY, Game.MOVE, Game.CARRY, Game.MOVE], 
                 getName('Courier'), 
-                { role: 'courier', primarySource: 'look in memory' }
+                { role: 'courier', primarySource: source.id }
             );
             if (typeof(resp) === 'string') {
                 source.couriers.push(resp);
@@ -83,9 +83,9 @@ module.exports = {
             return;
         } else if (source.miners.length < 2) {
             var resp = Game.spawns.Spawn1.createCreep( 
-                [Game.WORK, Game.CARRY, Game.WORK, Game.CARRY, Game.MOVE], 
+                [Game.WORK, Game.WORK, Game.CARRY, Game.CARRY, Game.MOVE], 
                 getName('Miner'), 
-                { role: 'miner', primarySource: 'look in memory' }
+                { role: 'miner', primarySource: source.id }
             );
             if (typeof(resp) === 'string') {
                 source.miners.push(resp);
@@ -93,9 +93,9 @@ module.exports = {
             return;
         } else if (source.couriers.length < 3) {
             var resp = Game.spawns.Spawn1.createCreep( 
-                [Game.CARRY, Game.CARRY, Game.MOVE, Game.MOVE], 
+                [Game.CARRY, Game.MOVE, Game.CARRY, Game.MOVE], 
                 getName('Courier'), 
-                { role: 'courier', primarySource: 'look in memory' }
+                { role: 'courier', primarySource: source.id }
             );
             if (typeof(resp) === 'string') {
                 source.couriers.push(resp);
@@ -104,3 +104,4 @@ module.exports = {
         }
     }
 }
+//dicks

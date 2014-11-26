@@ -22,32 +22,54 @@ module.exports = function (source) {
     if (source.miners.length > 0) {
         for (var i = 0; i < source.couriers.length; i++) {
             var creep = Game.creeps[source.couriers[i]];
-            if (creep === undefined) {
+            console.log('couriers');
+            if (creep === undefined) { //you're gone :(
                 source.couriers.splice(i, 1);
                 continue;
             }
-            var miner = Game.creeps[source.miners[minerIndex]];
-            //console.log('courier :' + creep);
-            if (creep.energy <= (creep.energyCapacity/2) && minerIndex !== undefined) {
-                creep.moveTo(miner);
-                miner.transferEnergy(creep, Math.min(creep.energyCapacity - creep.energy, miner.energy));
-            } else if (creep.energy > (creep.energyCapacity/2)) {
+            if (creep.energy + 20 >= creep.energyCapacity) { //you're full, go home
                 var spawn = creep.pos.findNearest(Game.MY_SPAWNS);
-                if (spawn === null) {
-                    console.log('why is this null?');
-                    continue;
+                creep.moveTo(spawn);
+                creep.transferEnergy(spawn);
+            } else { //get as much as you can
+                var minerIndex;
+                var minerEnergy = -1;
+                for (var j = 0; j < source.miners.length; j++) { //go through miners, get energy from them
+                    var miner = Game.creeps[source.miners[j]];
+                    console.log('minerEnergy :' + minerEnergy + ' miner.energy' + miner.energy)
+                    if (miner.energy > minerEnergy) {
+                        minerIndex = j;
+                        console.log('getting from i' + i)
+                        minerEnergy = miner.energy;
+                    }
+                    miner = Game.creeps[source.miners[minerIndex]];
+                    creep.moveTo(miner);
+                    miner.transferEnergy(creep, Math.min(creep.energyCapacity - creep.energy, miner.energy));
                 }
-                
-        	    if ((spawn.energy + creep.energy) > spawn.energyCapacity) {
-        	        creep.moveTo({
-        	            x: spawn.pos.x, 
-        	            y: spawn.pos.y + 5
-        	        });
-        	    } else {
-            		creep.moveTo(spawn);
-            		creep.transferEnergy(spawn);
-        	    }
             }
+
+/*
+                if (creep.energy <= (creep.energyCapacity/2) && minerIndex !== undefined) {
+                    creep.moveTo(miner);
+                    miner.transferEnergy(creep, Math.min(creep.energyCapacity - creep.energy, miner.energy));
+                } else if (creep.energy > (creep.energyCapacity/2)) {
+                    var spawn = creep.pos.findNearest(Game.MY_SPAWNS);
+                    if (spawn === null) {
+                        console.log('why is this null?');
+                        continue;
+                    }
+                    
+            	    if ((spawn.energy + creep.energy) > spawn.energyCapacity) {
+            	        creep.moveTo({
+            	            x: spawn.pos.x, 
+            	            y: spawn.pos.y + 5
+            	        });
+            	    } else {
+                		creep.moveTo(spawn);
+                		creep.transferEnergy(spawn);
+            	    }
+                }
+                */
         }
     }
 }
