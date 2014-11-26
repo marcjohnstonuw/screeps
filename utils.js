@@ -9,6 +9,26 @@ function getName (base) {
     return 'God';
 }
 
+function getPositionInDirection (pos, direction, distance) {
+    var d = direction - 1;
+    var dy = 0;
+    var dx = 0;
+    if (direction === 0 || direction === 1 || direction === 7) {
+        dy = -1;
+    }
+    if (direction === 4 || direction === 5 || direction === 3) {
+        dy = 1;
+    }
+    if (direction === 1 || direction === 2 || direction === 3) {
+        dx = 1;
+    }
+    if (direction === 5 || direction === 6 || direction === 7) {
+        dx = -1;
+    }
+    console.log('gPID returning :' + JSON.stringify({x: pos.x + (dx * distance), y: pos.y = (dy * distance)}))
+    return {x: pos.x + (dx * distance), y: pos.y = (dy * distance)};
+}
+
 module.exports = {
     countCreeps: function () {
         var ret = { fastWorkers: 0, slowWorkers: 0, melee: 0, ranged: 0, healer: 0 };
@@ -107,12 +127,16 @@ module.exports = {
     bail: function (creep, threat) {
         var spawn = creep.pos.findNearest(Game.MY_SPAWNS);
         var home = creep.pos.findPathTo(spawn);
+        if (home.length === 0) {
+            console.log(creep.name + ' cant get home :(')
+            return;
+        }
         var homeDirection = home[0].direction;
         var path = creep.pos.findPathTo(threat)
         var towards = path[0].direction;
         var away = ((towards + 3) % 8) + 1;
         if (homeDirection === towards) {
-            homeDirection = (homeDirection === 1) ? 8 : homeDirect - 1;
+            homeDirection = (homeDirection === 1) ? 8 : homeDirection - 1;
         }
         else if (homeDirection === (towards - 1) || homeDirection === (towards + 7)) {
             homeDirection = (homeDirection === 8) ? 1 : homeDirection + 1;
@@ -120,7 +144,9 @@ module.exports = {
             homeDirection = (homeDirection === 1) ? 8 : homeDirection - 1;;
         }
         console.log('creep :' + creep.name + ' is bailing in direction :' + homeDirection);
-        creep.move(homeDirection);
-    }
+        creep.moveTo(getPositionInDirection(creep.pos, homeDirection, 2));
+    },
+
+    getPositionInDirection: getPositionInDirection
 }
 //dicks
