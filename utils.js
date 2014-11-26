@@ -102,6 +102,25 @@ module.exports = {
             }
             return;
         }
+    },
+
+    bail: function (creep, threat) {
+        var spawn = creep.pos.findNearest(Game.MY_SPAWNS);
+        var home = creep.pos.findPathTo(spawn);
+        var homeDirection = home[0].direction;
+        var path = creep.pos.findPathTo(threat)
+        var towards = path[0].direction;
+        var away = ((towards + 3) % 8) + 1;
+        if (homeDirection === towards) {
+            homeDirection = (homeDirection === 1) ? 8 : homeDirect - 1;
+        }
+        else if (homeDirection === (towards - 1) || homeDirection === (towards + 7)) {
+            homeDirection = (homeDirection === 8) ? 1 : homeDirection + 1;
+        } else if (homeDirection === (towards + 1) || homeDirection === (towards - 7)) {
+            homeDirection = (homeDirection === 1) ? 8 : homeDirection - 1;;
+        }
+        console.log('creep :' + creep.name + ' is bailing in direction :' + homeDirection);
+        creep.move(homeDirection);
     }
 }
 //dicks

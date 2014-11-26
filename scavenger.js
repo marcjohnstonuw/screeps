@@ -2,7 +2,6 @@ var harvester = require('harvester');
 
 module.exports = function (creep) {
     var energy = creep.room.find(Game.DROPPED_ENERGY)
-    console.log('energy :' + JSON.stringify(energy));
     if(energy !== null && energy.length > 0) {
     	if (creep.energy < creep.energyCapacity) {
 	        creep.moveTo(energy[0]);

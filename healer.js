@@ -13,8 +13,20 @@ module.exports = function (creep) {
     	    }
     	}
     }
-    
-    if (lowIndex !== undefined && creep.getActiveBodyparts(Game.HEAL)) {
+    var targets = creep.pos.findInRange(Game.HOSTILE_CREEPS, 4);
+    var hasRanged = false;
+    for (var i = 0; i < targets.length; i++) {
+        if (targets[i].getActiveBodyparts(Game.RANGED_ATTACK) > 0) {
+            hasRanged = true;
+        }
+    }
+    if (hasRanged) {
+        targets = creep.pos.findInRange(Game.HOSTILE_CREEPS, 1);
+    }
+    if (targets !== null && targets.length > 0) { //OH FUCK
+        utils.bail(creep, targets[0]);
+    }
+    else if (lowIndex !== undefined && creep.getActiveBodyparts(Game.HEAL)) {
         creep.moveTo(Game.creeps[lowIndex]);
         creep.heal(Game.creeps[lowIndex]);
     } else if (guards.length > 0) {

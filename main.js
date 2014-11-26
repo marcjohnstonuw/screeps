@@ -89,15 +89,20 @@ else if (currentArchers < 1) {
 }
 // let's build stuff!
 else if (currentBuilders < 1) {
-    Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.WORK, Game.MOVE, Game.MOVE], utils.getName('Builder'), { role: 'builder', primarySource: 1 });
+    Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.MOVE], utils.getName('Builder'), { role: 'builder', primarySource: 1 });
 } 
 else if (currentHarvesters < 2) {
     Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.MOVE], utils.getName('Harvester'), { role: 'harvester', primarySource: 1 });
 }
 // 2 ranged
-else if (currentArchers < 2) {
-    Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
+else if (currentArchers < 3) {
+    Game.spawns.Spawn1.createCreep( [Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
 }
+
+//1 healer
+else if (currentHealers < 1) {
+    Game.spawns.Spawn1.createCreep( [Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
+} 
 //Site 3:  1 miners, 1 couriers (site 3 complete)
 else if (Memory.sources[3].miners.length < 1|| Memory.sources[3].couriers.length < 1) {
     utils.spawnForSource(Memory.sources[3]);
@@ -110,23 +115,18 @@ else if (Memory.sources[1].miners.length < 1 || Memory.sources[1].couriers.lengt
 else if (currentGuards < 1) {
     Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
 } 
-
-//1 healer
-else if (currentHealers < 1) {
-    Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
-} 
 //2 guards
 else if (currentGuards < 2) {
     Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
 } 
-// 4 ranged
-else if (currentArchers < 4) {
-    Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
-}
 //2 healers
 else if (currentHealers < 2) {
-    Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
+    Game.spawns.Spawn1.createCreep( [Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
 } 
+// 4 ranged
+else if (currentArchers < 4) {
+    Game.spawns.Spawn1.createCreep( [Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
+}
 // 3 ranged
 else if (currentArchers < 3) {
     Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );

@@ -12,12 +12,10 @@ module.exports = function (creep) {
         			creep.repair(targets[i]);
             	}
 	        } else {
-	        	console.log('scavenger? nothing to fix');
 			    scavenger(creep);
 			}
 	    }
 	} else {
-    	console.log('scavenger?');
 	    scavenger(creep);
 	}
 }

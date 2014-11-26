@@ -22,7 +22,6 @@ module.exports = function (source) {
     if (source.miners.length > 0) {
         for (var i = 0; i < source.couriers.length; i++) {
             var creep = Game.creeps[source.couriers[i]];
-            console.log('couriers');
             if (creep === undefined) { //you're gone :(
                 source.couriers.splice(i, 1);
                 continue;
@@ -36,10 +35,8 @@ module.exports = function (source) {
                 var minerEnergy = -1;
                 for (var j = 0; j < source.miners.length; j++) { //go through miners, get energy from them
                     var miner = Game.creeps[source.miners[j]];
-                    console.log('minerEnergy :' + minerEnergy + ' miner.energy' + miner.energy)
                     if (miner.energy > minerEnergy) {
                         minerIndex = j;
-                        console.log('getting from i' + i)
                         minerEnergy = miner.energy;
                     }
                     miner = Game.creeps[source.miners[minerIndex]];
