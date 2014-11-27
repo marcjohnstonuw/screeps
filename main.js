@@ -107,51 +107,20 @@ else if (currentHealers < 1) {
 else if (Memory.sources[3].miners.length < 1|| Memory.sources[3].couriers.length < 1) {
     utils.spawnForSource(Memory.sources[3]);
 } 
-// 1 miners, 1 couriers 
-else if (Memory.sources[1].miners.length < 1 || Memory.sources[1].couriers.length < 1) {
-    utils.spawnForSource(Memory.sources[1]);
-} 
-//2 guards
-else if (currentGuards < 1) {
-    Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
-} 
-//2 guards
-else if (currentGuards < 2) {
-    Game.spawns.Spawn1.createCreep( [Game.TOUGH, Game.MOVE, Game.ATTACK, Game.MOVE], utils.getName('Guard'), { role: 'guard' } );
-} 
-//2 healers
-else if (currentHealers < 2) {
-    Game.spawns.Spawn1.createCreep( [Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
-} 
 // 4 ranged
 else if (currentArchers < 4) {
     Game.spawns.Spawn1.createCreep( [Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
 }
-// 3 ranged
-else if (currentArchers < 3) {
-    Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
+// 4 harvesters
+else if (currentHarvesters < 4) {
+    Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.MOVE], utils.getName('Harvester'), { role: 'harvester', primarySource: 1 });
 }
-// 2 miners, 3 couriers (site 1 complete)
-else if (Memory.sources[1].miners.length < 2 || Memory.sources[1].couriers.length < 3) {
-    utils.spawnForSource(Memory.sources[1]);
+//2 healers
+else if (currentHealers < 2) {
+    Game.spawns.Spawn1.createCreep( [Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
 } 
-// let's build stuff!
-else if (currentBuilders < 2) {
-    Game.spawns.Spawn1.createCreep( [Game.WORK, Game.CARRY, Game.WORK, Game.MOVE, Game.MOVE], utils.getName('Builder'), { role: 'builder', primarySource: 0 });
-} 
-// site 2 complete
-else if (Memory.sources[2].miners.length < 2 || Memory.sources[2].couriers.length < 3) {
-    utils.spawnForSource(Memory.sources[2]);
-} 
-// site 3 complete
-else if (Memory.sources[3].miners.length < 1 || Memory.sources[3].couriers.length < 1) {
-    utils.spawnForSource(Memory.sources[3]);
-} 
-// site 4 complete
-else if (Memory.sources[4].miners.length < 2 || Memory.sources[4].couriers.length < 3) {
-    utils.spawnForSource(Memory.sources[4]);
-} else if (true) {
-
+else if (true) {
+    console.log('HOLY FUCK WHAT DO I DO NOW??');
 }
 
 /*

@@ -13,20 +13,21 @@ function getPositionInDirection (pos, direction, distance) {
     var d = direction - 1;
     var dy = 0;
     var dx = 0;
-    if (direction === 0 || direction === 1 || direction === 7) {
+    if (d === 0 || d === 1 || d === 7) {
         dy = -1;
     }
-    if (direction === 4 || direction === 5 || direction === 3) {
+    if (d === 4 || d === 5 || d === 3) {
         dy = 1;
     }
-    if (direction === 1 || direction === 2 || direction === 3) {
+    if (d === 1 || d === 2 || d === 3) {
         dx = 1;
     }
-    if (direction === 5 || direction === 6 || direction === 7) {
+    if (d === 5 || d === 6 || d === 7) {
         dx = -1;
     }
+    console.log('d:' + d + ' dx:' + dx + ' dy:' + dy);
     console.log('gPID returning :' + JSON.stringify({x: pos.x + (dx * distance), y: pos.y + (dy * distance)}))
-    return {x: pos.x + (dx * distance), y: pos.y = (dy * distance)};
+    return {x: pos.x + (dx * distance), y: pos.y + (dy * distance)};
 }
 
 module.exports = {
@@ -125,33 +126,44 @@ module.exports = {
     },
 
     bail: function (creep, threat) {
+        console.log('creep:' + creep)
         var spawn = creep.pos.findNearest(Game.MY_SPAWNS);
+        if (spawn === null) {
+            console.log('whar home?');
+            return;
+        }
         var home = creep.pos.findPathTo(spawn);
         if (home.length === 0) {
             console.log(creep.name + ' cant get home :(')
             return;
+        } else {
+            var homeDirection = home[0].direction;
+            var path = creep.pos.findPathTo(threat)
+            if (path.length === 0) {
+                console.log('jammed up :(');
+                return;
+            }
+            var towards = path[0].direction;
+            var away = ((towards + 3) % 8) + 1;
+            if (homeDirection === towards) {
+                homeDirection = (homeDirection === 1) ? 8 : homeDirection - 1;
+            }
+            else if (homeDirection === (towards - 1) || homeDirection === (towards + 7)) {
+                homeDirection = (homeDirection === 8) ? 1 : homeDirection + 1;
+            } else if (homeDirection === (towards + 1) || homeDirection === (towards - 7)) {
+                homeDirection = (homeDirection === 1) ? 8 : homeDirection - 1;;
+            }
+            console.log('creep :' + creep.name + ' is bailing in direction :' + homeDirection);
+            creep.moveTo(getPositionInDirection(creep.pos, homeDirection, 2));
         }
-        var homeDirection = home[0].direction;
-        var path = creep.pos.findPathTo(threat)
-        var towards = path[0].direction;
-        var away = ((towards + 3) % 8) + 1;
-        if (homeDirection === towards) {
-            homeDirection = (homeDirection === 1) ? 8 : homeDirection - 1;
-        }
-        else if (homeDirection === (towards - 1) || homeDirection === (towards + 7)) {
-            homeDirection = (homeDirection === 8) ? 1 : homeDirection + 1;
-        } else if (homeDirection === (towards + 1) || homeDirection === (towards - 7)) {
-            homeDirection = (homeDirection === 1) ? 8 : homeDirection - 1;;
-        }
-        console.log('creep :' + creep.name + ' is bailing in direction :' + homeDirection);
-        creep.moveTo(getPositionInDirection(creep.pos, homeDirection, 2));
     },
 
     getPositionInDirection: getPositionInDirection,
 
     kite: function (creep, direction) {
         console.log('direction :' + direction);
-        creep.moveTo(getPositionInDirection(creep.pos, direction));
+        console.log('creep :' + creep + ' pos :' + creep.pos);
+        creep.moveTo(getPositionInDirection(creep.pos, direction, 2));
     }
 }
 //dicks
