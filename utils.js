@@ -125,6 +125,42 @@ module.exports = {
         }
     },
 
+    spawnForPhalanx: function (phalanxInfo) {
+        if (phalanxInfo.archers.length < 1) {
+            var resp = Game.spawns.Spawn1.createCreep( 
+                [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], 
+                utils.getName('Archer'), 
+                { role: 'archer', phalanx: true } 
+            );
+            if (typeof(resp) === 'string') {
+                phalanxInfo.archers.push(resp);
+            }
+            return;
+        }
+        else if (phalanxInfo.healers.length < 1) {
+            var resp = Game.spawns.Spawn1.createCreep( 
+                [Game.HEAL, Game.MOVE], 
+                utils.getName('Healer'), 
+                { role: 'healer', phalanx: true } 
+            );
+            if (typeof(resp) === 'string') {
+                phalanxInfo.archers.push(resp);
+            }
+            return;
+        }
+        if (phalanxInfo.archers.length < 3) {
+            var resp = Game.spawns.Spawn1.createCreep( 
+                [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], 
+                utils.getName('Archer'), 
+                { role: 'archer', phalanx: true } 
+            );
+            if (typeof(resp) === 'string') {
+                phalanxInfo.archers.push(resp);
+            }
+            return;
+        }
+    },
+
     bail: function (creep, threat) {
         console.log('creep:' + creep)
         var spawn = creep.pos.findNearest(Game.MY_SPAWNS);

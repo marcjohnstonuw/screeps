@@ -1,6 +1,8 @@
 var utils = require('utils');
 module.exports = function (creep) {
-    console.log('HEALER');
+    if (creep.memory.phalanx) {
+        return;
+    }
     var fighters = [];
     var lowHealth = 999999;
     var lowIndex;

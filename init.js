@@ -35,4 +35,18 @@ module.exports = function () {
         
         break;  //for loop of 1
     }
+
+    //32, 35
+    //10, 25
+    var phalanxPositions = [{x: 32, y: 35}, {x: 10, y: 25}];
+    Memory.phalanxes = [];
+    for (var i = 0; i < phalanxPositions.length; i++) {
+        var phalanx = {};
+        phalanx.staging = phalanxPositions[i];
+        phalanx.currentPosition = phalanx.staging;
+        phalanx.healers = [];
+        phalanx.archers = [];
+        phalanx.direction = Game.BOTTOM;
+        Memory.phalanxes.push(phalanx);
+    }
 };

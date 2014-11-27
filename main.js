@@ -71,6 +71,10 @@ for (var i = 0; i < Memory.sources.length; i++) {
     miner(Memory.sources[i]);
 }
 
+for (var i = 0; i < Memory.phalanxes.length; i++) {
+    phalanx(Memory.phalanx[i]);
+}
+
 /*
 //start with harvesters for the close one
 if (currentHarvesters < 3) {

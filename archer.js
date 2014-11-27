@@ -3,6 +3,9 @@ var config = require('config');
 var STAGING = {x: 27, y: 35};
 
 module.exports = function (creep) {
+	if (creep.memory.phalanx) {
+		return;
+	}
 	var target = creep.pos.findNearest(Game.HOSTILE_CREEPS, {ignoreCreeps: true});
 	if(target !== null && !config.TURTLE) {
 		if (creep.getActiveBodyparts(Game.RANGED_ATTACK)) {
