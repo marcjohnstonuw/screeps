@@ -5,8 +5,8 @@ var STAGING = {x: 27, y: 35};
 module.exports = function (creep) {
 	var target = creep.pos.findNearest(Game.HOSTILE_CREEPS, {ignoreCreeps: true});
 	if(target !== null && !config.TURTLE) {
+		var path = creep.pos.findPathTo(target, {ignoreCreeps: true})
 		if (creep.getActiveBodyparts(Game.RANGED_ATTACK)) {
-			var path = creep.pos.findPathTo(target, {ignoreCreeps: true})
 			if (path.length <= 2) {
 				var towards = path[0].direction;
 				var away = ((towards + 3) % 8) + 1;
@@ -22,7 +22,20 @@ module.exports = function (creep) {
 				}
 			}
 		} else {
-			utils.bail(creep, target);
+			if (path.length > 3) {
+				var healers = creep.pos.findNearest(Game.MY_CREEPS, {ignoreCreeps: true}), {
+				    filter: function(object) {
+				        return object.getActiveBodyparts(Game.HEAL) > 0;
+				    }
+				});
+				if (healers.length) {
+					creep.moveTo(healers[0]);
+				} else {
+					creep.moveTo(24, 26);
+				}
+			} else {
+				utils.bail(creep, target);
+			}
 		}
 	} else {
 	    creep.moveTo(STAGING)

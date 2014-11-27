@@ -120,7 +120,7 @@ else if (currentHealers < 2) {
     Game.spawns.Spawn1.createCreep( [Game.HEAL, Game.MOVE], utils.getName('Healer'), { role: 'healer' } );
 } 
 else if (true) {
-    console.log('HOLY FUCK WHAT DO I DO NOW??');
+    Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
 }
 
 /*
