@@ -34,14 +34,12 @@ module.exports = function (creep) {
         utils.bail(creep, targets[0]);
     }
     else if (lowIndex !== undefined && creep.getActiveBodyparts(Game.HEAL)) {
-        console.log('healing :' + lowIndex + ' at position :' + Game.creeps[lowIndex].pos + ' path:' + JSON.stringify(creep.pos.findPathTo(Game.creeps[lowIndex])));
+        //console.log('healing :' + lowIndex + ' at position :' + Game.creeps[lowIndex].pos + ' path:' + JSON.stringify(creep.pos.findPathTo(Game.creeps[lowIndex])));
         creep.moveTo(Game.creeps[lowIndex]);
         creep.heal(Game.creeps[lowIndex]);
     } else if (fighters.length > 0) {
-        console.log('hangin with fighters 0')
         creep.moveTo(fighters[0]);
     } else {
-        console.log('so bored...');
         creep.moveTo(24, 26);
     }
 }

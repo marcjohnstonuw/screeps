@@ -8,7 +8,7 @@ var init = require('init');
 var miner = require('miner');
 var healer = require('healer');
 var archer = require('archer');
-
+var phalanx = require('phalanx');
 
 var MAX_HARVESTERS = 11;
 var MAX_BUILDERS = 4;
@@ -72,7 +72,7 @@ for (var i = 0; i < Memory.sources.length; i++) {
 }
 
 for (var i = 0; i < Memory.phalanxes.length; i++) {
-    phalanx(Memory.phalanx[i]);
+    phalanx(Memory.phalanxes[i]);
 }
 
 /*
@@ -82,11 +82,16 @@ if (currentHarvesters < 3) {
 }
 */
 
-//1 miner and 1 courier
-if (Memory.sources[0].miners.length < 2 || Memory.sources[0].couriers.length < 1) {
+//3 miner and 3 courier
+if (Memory.sources[0].miners.length < 3 || Memory.sources[0].couriers.length < 3) {
     utils.spawnForSource(Memory.sources[0]);
 } 
 
+else if (currentArchers < 3 || currentHealers < 1) {
+    utils.spawnForPhalanx(Memory.phalanxes[0]);
+}
+
+/*
 // 2 ranged
 else if (currentArchers < 1) {
     Game.spawns.Spawn1.createCreep( [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
@@ -102,6 +107,7 @@ else if (currentHarvesters < 2) {
 else if (currentArchers < 3) {
     Game.spawns.Spawn1.createCreep( [Game.RANGED_ATTACK, Game.MOVE], utils.getName('Archer'), { role: 'archer' } );
 }
+*/
 
 //1 healer
 else if (currentHealers < 1) {

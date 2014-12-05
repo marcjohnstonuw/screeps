@@ -25,9 +25,11 @@ function getPositionInDirection (pos, direction, distance) {
     if (d === 5 || d === 6 || d === 7) {
         dx = -1;
     }
-    console.log('d:' + d + ' dx:' + dx + ' dy:' + dy);
-    console.log('gPID returning :' + JSON.stringify({x: pos.x + (dx * distance), y: pos.y + (dy * distance)}))
     return {x: pos.x + (dx * distance), y: pos.y + (dy * distance)};
+}
+
+function getDirectionClockwise (direction, turns) {
+    return ((direction + 7 + turns) % 8) + 1;
 }
 
 module.exports = {
@@ -112,6 +114,26 @@ module.exports = {
                 source.miners.push(resp);
             }
             return;
+        } else if (source.couriers.length < 2) {
+            var resp = Game.spawns.Spawn1.createCreep( 
+                [Game.CARRY, Game.MOVE, Game.CARRY, Game.MOVE], 
+                getName('Courier'), 
+                { role: 'courier', primarySource: source.id }
+            );
+            if (typeof(resp) === 'string') {
+                source.couriers.push(resp);
+            }
+            return;
+        }else if (source.miners.length < 3) {
+            var resp = Game.spawns.Spawn1.createCreep( 
+                [Game.WORK, Game.WORK, Game.CARRY, Game.CARRY, Game.MOVE], 
+                getName('Miner'), 
+                { role: 'miner', primarySource: source.id }
+            );
+            if (typeof(resp) === 'string') {
+                source.miners.push(resp);
+            }
+            return;
         } else if (source.couriers.length < 3) {
             var resp = Game.spawns.Spawn1.createCreep( 
                 [Game.CARRY, Game.MOVE, Game.CARRY, Game.MOVE], 
@@ -129,7 +151,7 @@ module.exports = {
         if (phalanxInfo.archers.length < 1) {
             var resp = Game.spawns.Spawn1.createCreep( 
                 [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], 
-                utils.getName('Archer'), 
+                getName('Archer'), 
                 { role: 'archer', phalanx: true } 
             );
             if (typeof(resp) === 'string') {
@@ -139,19 +161,19 @@ module.exports = {
         }
         else if (phalanxInfo.healers.length < 1) {
             var resp = Game.spawns.Spawn1.createCreep( 
-                [Game.HEAL, Game.MOVE], 
-                utils.getName('Healer'), 
+                [Game.HEAL, Game.MOVE, Game.HEAL, Game.MOVE], 
+                getName('Healer'), 
                 { role: 'healer', phalanx: true } 
             );
             if (typeof(resp) === 'string') {
-                phalanxInfo.archers.push(resp);
+                phalanxInfo.healers.push(resp);
             }
             return;
         }
         if (phalanxInfo.archers.length < 3) {
             var resp = Game.spawns.Spawn1.createCreep( 
                 [Game.MOVE, Game.RANGED_ATTACK, Game.MOVE, Game.RANGED_ATTACK, Game.MOVE], 
-                utils.getName('Archer'), 
+                getName('Archer'), 
                 { role: 'archer', phalanx: true } 
             );
             if (typeof(resp) === 'string') {
@@ -195,11 +217,12 @@ module.exports = {
     },
 
     getPositionInDirection: getPositionInDirection,
+    getDirectionClockwise: getDirectionClockwise,
 
     kite: function (creep, direction) {
         console.log('direction :' + direction);
         console.log('creep :' + creep + ' pos :' + creep.pos);
-        creep.moveTo(getPositionInDirection(creep.pos, direction, 2));
+        //creep.moveTo(getPositionInDirection(creep.pos, direction, 2));
     }
 }
 //dicks
